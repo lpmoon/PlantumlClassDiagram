@@ -1,11 +1,10 @@
-package pluntuml;
+package plantuml;
 
 import clazz.ClassEnum;
 import clazz.ParsedClass;
 
 import java.io.*;
 import java.util.List;
-import java.util.Scanner;
 
 public class PlantumlPainter {
     public void paint(String filePath, String fileName, List<ParsedClass> parsedClassList) throws IOException {

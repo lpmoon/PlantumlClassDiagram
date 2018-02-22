@@ -1,6 +1,6 @@
 import clazz.ClassParser;
 import clazz.ParsedClass;
-import pluntuml.PlantumlPainter;
+import plantuml.PlantumlPainter;
 import util.FileHandler;
 import util.RecursiveScanner;
 
