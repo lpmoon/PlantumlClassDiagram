@@ -1,0 +1,31 @@
+@startuml
+TestClass<|--AbstractTest
+TestInterface<|..AbstractTest
+TestInterface2<|..AbstractTest
+abstract class AbstractTest
+
+
+TestClass<|--Test
+TestInterface<|..Test
+TestInterface2<|..Test
+class Test
+
+
+TestClass<|--Test2
+TestInterface<|..Test2
+class Test2
+
+
+enum TestEnum
+
+
+class TestClass
+
+
+interface TestInterface
+
+
+interface TestInterface2
+
+
+@enduml

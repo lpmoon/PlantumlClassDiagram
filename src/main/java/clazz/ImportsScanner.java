@@ -1,3 +1,5 @@
+package clazz;
+
 import com.sun.source.tree.ImportTree;
 import com.sun.source.util.TreeScanner;
 
