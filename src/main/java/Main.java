@@ -12,8 +12,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        drawAllClasses("src/test/", "src/test/", "tmp");
-        drawAssociated("src/test/", "src/test/", "tmp2", "AbstractTest");
+        drawAllClasses("src/test/", "src/test/", "tmp");
+        drawAssociated("src/test/", "src/test/", "tmp2", "Test3");
     }
 
     public static void drawAssociated(String path, String dest, String name, String clazz) throws IOException {

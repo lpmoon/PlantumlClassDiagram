@@ -2,27 +2,24 @@
 
 ' =========== AbstractTest =========== 
 abstract class AbstractTest{ 
-    next : AbstractTest
-    value : Integer
+    void func3()
 } 
-dep.TestClass<|--AbstractTest
-dep.TestInterface<|..AbstractTest
-dep.TestInterface2<|..AbstractTest
+dep.TestInterface<|.. AbstractTest
+dep.TestInterface2<|.. AbstractTest
 
 
 ' =========== Test =========== 
 class Test{ 
-    next : Test
-    next2 : Test2
-    value : Integer
-    void hello()
+    atomicBoolean : AtomicBoolean
+    testEnum : TestEnum
+    void func3()
+    void func()
+    void func2()
 } 
-dep.TestClass<|--Test
-dep.TestInterface<|..Test
-dep.TestInterface2<|..Test
-Test*..Test2
-Test+--InnerClass
-Test+--InnerClass2
+AbstractTest<|-- Test
+Test*.. TestEnum
+Test+-- InnerClass
+Test+-- InnerClass2
 
 
 ' =========== InnerClass =========== 
@@ -39,11 +36,16 @@ class InnerClass2{
 
 ' =========== Test2 =========== 
 class Test2{ 
-    next : Test2
-    value : Integer
+    void func3()
+    void func()
+    void func2()
 } 
-dep.TestClass<|--Test2
-dep.TestInterface<|..Test2
+AbstractTest<|-- Test2
+
+
+' =========== Test3 =========== 
+class Test3{ 
+} 
 
 
 ' =========== TestEnum =========== 
@@ -55,18 +57,15 @@ enum TestEnum{
 } 
 
 
-' =========== dep.TestClass =========== 
-class dep.TestClass{ 
-} 
-
-
 ' =========== dep.TestInterface =========== 
 interface dep.TestInterface{ 
+    void func()
 } 
 
 
 ' =========== dep.TestInterface2 =========== 
 interface dep.TestInterface2{ 
+    void func2()
 } 
 
 @enduml

@@ -1,14 +1,27 @@
-import dep.TestClass;
 import dep.TestInterface;
 import dep.TestInterface2;
 
-public class Test extends TestClass implements TestInterface, TestInterface2 {
-    private Integer value;
-    private Test next;
-    private Test2 next2;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-    public void hello(String s) {
-        System.out.println("abc");
+public class Test extends AbstractTest{
+
+    private TestEnum testEnum;
+
+    private AtomicBoolean atomicBoolean;
+
+    @Override
+    public void func3() {
+
+    }
+
+    @Override
+    public void func() {
+
+    }
+
+    @Override
+    public void func2() {
+
     }
 
     public class InnerClass {
