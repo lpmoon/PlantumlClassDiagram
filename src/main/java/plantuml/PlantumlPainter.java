@@ -14,16 +14,28 @@ public class PlantumlPainter {
         bufferedWriter.write("@startuml\n");
 
         for (ParsedClass parsedClass : parsedClassList) {
-            paintClass(bufferedWriter, parsedClass);
-            paintExtends(bufferedWriter, parsedClass);
-            paintImplements(bufferedWriter, parsedClass);
-            paintDependencies(bufferedWriter, parsedClass);
+            paint(bufferedWriter, parsedClass);
             bufferedWriter.write("\n\n");
         }
 
         bufferedWriter.write("@enduml\n");
 
         bufferedWriter.close();
+    }
+
+    private void paint(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
+        paintClass(bufferedWriter, parsedClass);
+        paintExtends(bufferedWriter, parsedClass);
+        paintImplements(bufferedWriter, parsedClass);
+        paintDependencies(bufferedWriter, parsedClass);
+        paintInnerClass(bufferedWriter, parsedClass);
+    }
+
+    private void paintInnerClass(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
+        for (ParsedClass innerClass : parsedClass.getInnerClasses()) {
+            paint(bufferedWriter, innerClass);
+            bufferedWriter.write(parsedClass.getName() + "+--" + innerClass.getName() + "\n");
+        }
     }
 
     private void paintDependencies(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {

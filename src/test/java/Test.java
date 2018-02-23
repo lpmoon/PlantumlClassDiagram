@@ -10,4 +10,12 @@ public class Test extends TestClass implements TestInterface, TestInterface2 {
     public void hello(String s) {
         System.out.println("abc");
     }
+
+    public class InnerClass {
+        private int innerValue;
+    }
+
+    public static class InnerClass2 {
+        private int innerValue;
+    }
 }

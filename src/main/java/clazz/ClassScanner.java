@@ -34,28 +34,46 @@ public class ClassScanner extends
 
         for (Tree member : node.getMembers()) {
             if (member instanceof VariableTree) {
-                VariableTree variable = (VariableTree) member;
-                parsedClass.getMembers().put(variable.getName().toString(), variable.getType().toString());
+                handleVariableTree(parsedClass, (VariableTree) member);
             }
 
             if (member instanceof MethodTree) {
-                ClassMethod classMethod = new ClassMethod();
+                handleMethodTree(parsedClass, (MethodTree) member);
+            }
 
-                MethodTree method = (MethodTree) member;
-                String name = method.getName().toString();
-                String returnType = method.getReturnType().toString();
-
-                for (Tree param : method.getParameters()) {
-                    VariableTree variable = (VariableTree) param;
-                    classMethod.getParamsType().add(variable.getType().toString());
-                }
-                classMethod.setName(name);
-                classMethod.setReturnType(returnType);
-
-                parsedClass.getMethods().add(classMethod);
+            if (member instanceof ClassTree) {
+                handleClassTree(parsedClass, (ClassTree) member);
             }
         }
 
         return parsedClass;
+    }
+
+    private void handleClassTree(ParsedClass parsedClass, ClassTree member) {
+        ParsedClass innerClass = new ParsedClass();
+        visitClass(member, innerClass);
+        parsedClass.getInnerClasses().add(innerClass);
+    }
+
+    private void handleVariableTree(ParsedClass parsedClass, VariableTree member) {
+        VariableTree variable = member;
+        parsedClass.getMembers().put(variable.getName().toString(), variable.getType().toString());
+    }
+
+    private void handleMethodTree(ParsedClass parsedClass, MethodTree member) {
+        ClassMethod classMethod = new ClassMethod();
+
+        MethodTree method = member;
+        String name = method.getName().toString();
+        String returnType = method.getReturnType().toString();
+
+        for (Tree param : method.getParameters()) {
+            VariableTree variable = (VariableTree) param;
+            classMethod.getParamsType().add(variable.getType().toString());
+        }
+        classMethod.setName(name);
+        classMethod.setReturnType(returnType);
+
+        parsedClass.getMethods().add(classMethod);
     }
 }

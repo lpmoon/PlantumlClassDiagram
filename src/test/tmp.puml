@@ -20,6 +20,16 @@ TestInterface<|..Test
 TestInterface2<|..Test
 Test*..Test2
 Test*..Integer
+class InnerClass{ 
+    innerValue : int
+} 
+InnerClass*..int
+Test+--InnerClass
+class InnerClass2{ 
+    innerValue : int
+} 
+InnerClass2*..int
+Test+--InnerClass2
 
 
 class Test2{ 

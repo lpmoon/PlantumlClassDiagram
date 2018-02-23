@@ -13,6 +13,7 @@ public class ParsedClass {
     private List<String> extendsClasses;
     private List<String> implementsClasses;
     private List<ClassMethod> methods;
+    private List<ParsedClass> innerClasses;
 
     private ClassEnum type = ClassEnum.CLASS;
 
@@ -22,6 +23,7 @@ public class ParsedClass {
         extendsClasses = new ArrayList<>();
         implementsClasses = new ArrayList<>();
         methods = new ArrayList<>();
+        innerClasses = new ArrayList<>();
     }
 
     public ClassEnum getType() {
@@ -88,6 +90,14 @@ public class ParsedClass {
         this.methods = methods;
     }
 
+    public List<ParsedClass> getInnerClasses() {
+        return innerClasses;
+    }
+
+    public void setInnerClasses(List<ParsedClass> innerClasses) {
+        this.innerClasses = innerClasses;
+    }
+
     @Override
     public String toString() {
         return "ParsedClass{" +
@@ -98,6 +108,7 @@ public class ParsedClass {
                 ", extendsClasses=" + extendsClasses +
                 ", implementsClasses=" + implementsClasses +
                 ", methods=" + methods +
+                ", innerClasses=" + innerClasses +
                 ", type=" + type +
                 '}';
     }
