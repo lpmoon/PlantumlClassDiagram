@@ -7,8 +7,8 @@ class Main{
 } 
 
 
-' =========== ClassEnum =========== 
-enum ClassEnum{ 
+' =========== clazz.ClassEnum =========== 
+enum clazz.ClassEnum{ 
     ABSTRACT_CLASS : ClassEnum
     ENUM : ClassEnum
     INTERFACE : ClassEnum
@@ -16,8 +16,8 @@ enum ClassEnum{
 } 
 
 
-' =========== ClassMethod =========== 
-class ClassMethod{ 
+' =========== clazz.ClassMethod =========== 
+class clazz.ClassMethod{ 
     name : String
     returnType : String
     paramsType : List
@@ -30,13 +30,10 @@ class ClassMethod{
     void setParamsType()
     String toString()
 } 
-ClassMethod*..String
-ClassMethod*..String
-ClassMethod*..List
 
 
-' =========== ClassParser =========== 
-class ClassParser{ 
+' =========== clazz.ClassParser =========== 
+class clazz.ClassParser{ 
     factory : ParserFactory
     void <init>()
     ParsedClass parse()
@@ -44,28 +41,28 @@ class ClassParser{
     ParserFactory getParserFactory()
     CharSequence readFile()
 } 
-ClassParser*..ParserFactory
+clazz.ClassParser*..com.sun.tools.javac.parser.ParserFactory
 
 
-' =========== ClassScanner =========== 
-class ClassScanner{ 
+' =========== clazz.ClassScanner =========== 
+class clazz.ClassScanner{ 
     ParsedClass visitClass()
     void handleClassTree()
     void handleVariableTree()
     void handleMethodTree()
 } 
-TreeScanner<|--ClassScanner
+com.sun.source.util.TreeScanner<|--clazz.ClassScanner
 
 
-' =========== ImportsScanner =========== 
-class ImportsScanner{ 
+' =========== clazz.ImportsScanner =========== 
+class clazz.ImportsScanner{ 
     ParsedClass visitImport()
 } 
-TreeScanner<|--ImportsScanner
+com.sun.source.util.TreeScanner<|--clazz.ImportsScanner
 
 
-' =========== ParsedClass =========== 
-class ParsedClass{ 
+' =========== clazz.ParsedClass =========== 
+class clazz.ParsedClass{ 
     packagePath : String
     extendsClasses : List
     imports : List
@@ -94,27 +91,21 @@ class ParsedClass{
     void setMethods()
     List<ParsedClass> getInnerClasses()
     void setInnerClasses()
+    String getFullName()
     String toString()
+    String getFullClass()
 } 
-ParsedClass*..String
-ParsedClass*..List
-ParsedClass*..List
-ParsedClass*..List
-ParsedClass*..Map
-ParsedClass*..String
-ParsedClass*..ClassEnum
-ParsedClass*..List
-ParsedClass*..List
+clazz.ParsedClass*..clazz.ClassEnum
 
 
-' =========== TypeUtil =========== 
-class TypeUtil{ 
+' =========== clazz.TypeUtil =========== 
+class clazz.TypeUtil{ 
     String getType()
 } 
 
 
-' =========== PlantumlPainter =========== 
-class PlantumlPainter{ 
+' =========== plantuml.PlantumlPainter =========== 
+class plantuml.PlantumlPainter{ 
     void paint()
     void paint()
     void paintInnerClass()
@@ -125,14 +116,22 @@ class PlantumlPainter{
 } 
 
 
-' =========== FileHandler =========== 
-interface FileHandler{ 
+' =========== util.ClassUtil =========== 
+class util.ClassUtil{ 
+    BASIC_CLASS : Set
+    boolean isJdkBasicClass()
+    boolean isClassIgnorePackage()
+} 
+
+
+' =========== util.FileHandler =========== 
+interface util.FileHandler{ 
     boolean handle()
 } 
 
 
-' =========== RecursiveScanner =========== 
-class RecursiveScanner{ 
+' =========== util.RecursiveScanner =========== 
+class util.RecursiveScanner{ 
     void scan()
 } 
 

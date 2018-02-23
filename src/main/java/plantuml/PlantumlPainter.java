@@ -3,6 +3,7 @@ package plantuml;
 import clazz.ClassEnum;
 import clazz.ClassMethod;
 import clazz.ParsedClass;
+import util.ClassUtil;
 
 import java.io.*;
 import java.util.List;
@@ -35,32 +36,34 @@ public class PlantumlPainter {
     private void paintInnerClass(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
         for (ParsedClass innerClass : parsedClass.getInnerClasses()) {
             paint(bufferedWriter, innerClass);
-            bufferedWriter.write(parsedClass.getName() + "+--" + innerClass.getName() + "\n");
+            bufferedWriter.write(parsedClass.getFullName() + "+--" + innerClass.getFullName() + "\n");
         }
     }
 
     private void paintDependencies(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
         for (Map.Entry<String, String> entry : parsedClass.getMembers().entrySet()) {
-            if (!parsedClass.getName().equals(entry.getValue())) {
-                bufferedWriter.write(parsedClass.getName() + "*.." + entry.getValue() + "\n");
+            String clazz = entry.getValue();
+            String fullClass = parsedClass.getFullClass(entry.getValue());
+            if (!parsedClass.getName().equals(entry.getValue()) && !ClassUtil.isJdkBasicClass(fullClass)) {
+                bufferedWriter.write(parsedClass.getFullName() + "*.." + fullClass + "\n");
             }
         }
     }
 
     private void paintImplements(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
         for (String implementsClass : parsedClass.getImplementsClasses()) {
-            bufferedWriter.write(implementsClass + "<|.." + parsedClass.getName() + "\n");
+            bufferedWriter.write(parsedClass.getFullClass(implementsClass) + "<|.." + parsedClass.getFullName() + "\n");
         }
     }
 
     private void paintExtends(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
         for (String extendsClass : parsedClass.getExtendsClasses()) {
-            bufferedWriter.write(extendsClass + "<|--" + parsedClass.getName() + "\n");
+            bufferedWriter.write(parsedClass.getFullClass(extendsClass) + "<|--" + parsedClass.getFullName() + "\n");
         }
     }
 
     private void paintClass(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
-        bufferedWriter.write("' =========== " + parsedClass.getName() + " =========== \n");
+        bufferedWriter.write("' =========== " + parsedClass.getFullName() + " =========== \n");
         String type = "";
         if (parsedClass.getType() == ClassEnum.INTERFACE) {
             type = "interface";
@@ -72,7 +75,7 @@ public class PlantumlPainter {
             type = "class";
         }
 
-        bufferedWriter.write(type + " " + parsedClass.getName() + "{ \n");
+        bufferedWriter.write(type + " " + parsedClass.getFullName() + "{ \n");
 
         for (Map.Entry<String, String> entry : parsedClass.getMembers().entrySet()) {
             bufferedWriter.write("    " + entry.getKey() + " : " + entry.getValue() + "\n");

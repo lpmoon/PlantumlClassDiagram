@@ -1,5 +1,7 @@
 package clazz;
 
+import util.ClassUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +100,10 @@ public class ParsedClass {
         this.innerClasses = innerClasses;
     }
 
+    public String getFullName() {
+        return this.packagePath == null ?  this.name : this.packagePath + "." + this.name;
+    }
+
     @Override
     public String toString() {
         return "ParsedClass{" +
@@ -111,5 +117,32 @@ public class ParsedClass {
                 ", innerClasses=" + innerClasses +
                 ", type=" + type +
                 '}';
+    }
+
+    public String getFullClass(String name) {
+        for (String importClass : imports) {
+            String clazz;
+            int lastIndex = importClass.lastIndexOf(".");
+            if (lastIndex >=0 ) {
+                clazz = importClass.substring(lastIndex + 1);
+            } else {
+                clazz = importClass;
+            }
+
+            if (clazz.equals(name)) {
+                return importClass;
+            }
+        }
+
+        if (name.contains(".")) {
+            return name;
+        }
+
+        if (ClassUtil.isClassIgnorePackage(name)) {
+            return name;
+        }
+
+        return this.packagePath == null ? name : this.packagePath + "." + name;
+
     }
 }

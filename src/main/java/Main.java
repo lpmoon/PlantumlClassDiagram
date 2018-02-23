@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        drawAllClasses("src/main/java", "src/test/", "tmp");
+        drawAllClasses("src/main/", "src/test/", "tmp");
     }
 
     public static void drawAllClasses(String path, String dest, String name) throws IOException {
