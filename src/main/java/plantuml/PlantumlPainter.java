@@ -15,7 +15,6 @@ public class PlantumlPainter {
 
         for (ParsedClass parsedClass : parsedClassList) {
             paint(bufferedWriter, parsedClass);
-            bufferedWriter.write("\n\n");
         }
 
         bufferedWriter.write("@enduml\n");
@@ -24,11 +23,13 @@ public class PlantumlPainter {
     }
 
     private void paint(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
+        bufferedWriter.write("\n");
         paintClass(bufferedWriter, parsedClass);
         paintExtends(bufferedWriter, parsedClass);
         paintImplements(bufferedWriter, parsedClass);
         paintDependencies(bufferedWriter, parsedClass);
         paintInnerClass(bufferedWriter, parsedClass);
+        bufferedWriter.write("\n");
     }
 
     private void paintInnerClass(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
@@ -59,6 +60,7 @@ public class PlantumlPainter {
     }
 
     private void paintClass(BufferedWriter bufferedWriter, ParsedClass parsedClass) throws IOException {
+        bufferedWriter.write("' =========== " + parsedClass.getName() + " =========== \n");
         String type = "";
         if (parsedClass.getType() == ClassEnum.INTERFACE) {
             type = "interface";

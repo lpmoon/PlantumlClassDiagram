@@ -1,4 +1,6 @@
 @startuml
+
+' =========== AbstractTest =========== 
 abstract class AbstractTest{ 
     next : AbstractTest
     value : Integer
@@ -9,6 +11,7 @@ TestInterface2<|..AbstractTest
 AbstractTest*..Integer
 
 
+' =========== Test =========== 
 class Test{ 
     next : Test
     next2 : Test2
@@ -20,18 +23,25 @@ TestInterface<|..Test
 TestInterface2<|..Test
 Test*..Test2
 Test*..Integer
+
+' =========== InnerClass =========== 
 class InnerClass{ 
     innerValue : int
 } 
 InnerClass*..int
+
 Test+--InnerClass
+
+' =========== InnerClass2 =========== 
 class InnerClass2{ 
     innerValue : int
 } 
 InnerClass2*..int
+
 Test+--InnerClass2
 
 
+' =========== Test2 =========== 
 class Test2{ 
     next : Test2
     value : Integer
@@ -41,6 +51,7 @@ TestInterface<|..Test2
 Test2*..Integer
 
 
+' =========== TestEnum =========== 
 enum TestEnum{ 
     A : TestEnum
     B : TestEnum
@@ -49,16 +60,18 @@ enum TestEnum{
 } 
 
 
+' =========== TestClass =========== 
 class TestClass{ 
 } 
 
 
+' =========== TestInterface =========== 
 interface TestInterface{ 
 } 
 
 
+' =========== TestInterface2 =========== 
 interface TestInterface2{ 
 } 
-
 
 @enduml
