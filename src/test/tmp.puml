@@ -1,31 +1,54 @@
 @startuml
+abstract class AbstractTest{ 
+    next : AbstractTest
+    value : Integer
+} 
 TestClass<|--AbstractTest
 TestInterface<|..AbstractTest
 TestInterface2<|..AbstractTest
-abstract class AbstractTest
+AbstractTest*..Integer
 
 
+class Test{ 
+    next : Test
+    next2 : Test2
+    value : Integer
+    void hello()
+} 
 TestClass<|--Test
 TestInterface<|..Test
 TestInterface2<|..Test
-class Test
+Test*..Test2
+Test*..Integer
 
 
+class Test2{ 
+    next : Test2
+    value : Integer
+} 
 TestClass<|--Test2
 TestInterface<|..Test2
-class Test2
+Test2*..Integer
 
 
-enum TestEnum
+enum TestEnum{ 
+    A : TestEnum
+    B : TestEnum
+    C : TestEnum
+    D : TestEnum
+} 
 
 
-class TestClass
+class TestClass{ 
+} 
 
 
-interface TestInterface
+interface TestInterface{ 
+} 
 
 
-interface TestInterface2
+interface TestInterface2{ 
+} 
 
 
 @enduml

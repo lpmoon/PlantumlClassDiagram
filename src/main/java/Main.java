@@ -12,11 +12,14 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        drawAllClasses("src/test/java", "src/test/", "tmp");
+    }
 
+    public static void drawAllClasses(String path, String dest, String name) throws IOException {
         List<ParsedClass> parsedClassList = new ArrayList<>();
 
         RecursiveScanner scanner = new RecursiveScanner();
-        scanner.scan("src/test/java",
+        scanner.scan(path,
                 new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
@@ -30,6 +33,7 @@ public class Main {
                         ClassParser classParser = new ClassParser();
                         try {
                             ParsedClass clazz = classParser.parse(path);
+                            System.out.println(clazz);
                             parsedClassList.add(clazz);
                         } catch (IOException e) {
                         }
@@ -40,6 +44,6 @@ public class Main {
         );
 
         PlantumlPainter painter = new PlantumlPainter();
-        painter.paint("src/test/", "tmp", parsedClassList);
+        painter.paint(dest, name, parsedClassList);
     }
 }

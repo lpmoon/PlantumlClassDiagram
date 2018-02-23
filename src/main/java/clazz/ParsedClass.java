@@ -12,6 +12,7 @@ public class ParsedClass {
     private Map<String, String> members;
     private List<String> extendsClasses;
     private List<String> implementsClasses;
+    private List<ClassMethod> methods;
 
     private ClassEnum type = ClassEnum.CLASS;
 
@@ -20,6 +21,7 @@ public class ParsedClass {
         members = new HashMap<>();
         extendsClasses = new ArrayList<>();
         implementsClasses = new ArrayList<>();
+        methods = new ArrayList<>();
     }
 
     public ClassEnum getType() {
@@ -78,12 +80,25 @@ public class ParsedClass {
         this.implementsClasses = implementsClasses;
     }
 
+    public List<ClassMethod> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<ClassMethod> methods) {
+        this.methods = methods;
+    }
+
+    @Override
     public String toString() {
-        return  "name:" + name
-                + ", package:" + packagePath
-                + ", imports:" + imports.toString()
-                + ", members:" + members.toString()
-                + ", extendsClasses" + extendsClasses.toString()
-                + ", implementsClasses:" + implementsClasses.toString();
+        return "ParsedClass{" +
+                "packagePath='" + packagePath + '\'' +
+                ", name='" + name + '\'' +
+                ", imports=" + imports +
+                ", members=" + members +
+                ", extendsClasses=" + extendsClasses +
+                ", implementsClasses=" + implementsClasses +
+                ", methods=" + methods +
+                ", type=" + type +
+                '}';
     }
 }

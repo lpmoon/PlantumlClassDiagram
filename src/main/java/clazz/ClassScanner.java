@@ -1,9 +1,6 @@
 package clazz;
 
-import com.sun.source.tree.ClassTree;
-import com.sun.source.tree.ModifiersTree;
-import com.sun.source.tree.Tree;
-import com.sun.source.tree.VariableTree;
+import com.sun.source.tree.*;
 import com.sun.source.util.TreeScanner;
 
 import javax.lang.model.element.Modifier;
@@ -39,6 +36,23 @@ public class ClassScanner extends
             if (member instanceof VariableTree) {
                 VariableTree variable = (VariableTree) member;
                 parsedClass.getMembers().put(variable.getName().toString(), variable.getType().toString());
+            }
+
+            if (member instanceof MethodTree) {
+                ClassMethod classMethod = new ClassMethod();
+
+                MethodTree method = (MethodTree) member;
+                String name = method.getName().toString();
+                String returnType = method.getReturnType().toString();
+
+                for (Tree param : method.getParameters()) {
+                    VariableTree variable = (VariableTree) param;
+                    classMethod.getParamsType().add(variable.getType().toString());
+                }
+                classMethod.setName(name);
+                classMethod.setReturnType(returnType);
+
+                parsedClass.getMethods().add(classMethod);
             }
         }
 
