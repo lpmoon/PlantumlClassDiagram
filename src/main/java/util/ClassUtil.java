@@ -13,5 +13,5 @@ public class ClassUtil {
         return BASIC_CLASS.contains(clazz);
     }
 
-    public static Set BASIC_CLASS = new HashSet(Arrays.asList("String", "int", "long", "double", "float", "Integer", "Long", "Double", "Float"));
+    public static Set BASIC_CLASS = new HashSet(Arrays.asList("Object", "String", "int", "long", "double", "float", "Integer", "Long", "Double", "Float"));
 }

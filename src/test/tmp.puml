@@ -1,138 +1,72 @@
 @startuml
 
-' =========== Main =========== 
-class Main{ 
-    void main()
-    void drawAllClasses()
+' =========== AbstractTest =========== 
+abstract class AbstractTest{ 
+    next : AbstractTest
+    value : Integer
+} 
+dep.TestClass<|--AbstractTest
+dep.TestInterface<|..AbstractTest
+dep.TestInterface2<|..AbstractTest
+
+
+' =========== Test =========== 
+class Test{ 
+    next : Test
+    next2 : Test2
+    value : Integer
+    void hello()
+} 
+dep.TestClass<|--Test
+dep.TestInterface<|..Test
+dep.TestInterface2<|..Test
+Test*..Test2
+Test+--InnerClass
+Test+--InnerClass2
+
+
+' =========== InnerClass =========== 
+class InnerClass{ 
+    innerValue : int
 } 
 
 
-' =========== clazz.ClassEnum =========== 
-enum clazz.ClassEnum{ 
-    ABSTRACT_CLASS : ClassEnum
-    ENUM : ClassEnum
-    INTERFACE : ClassEnum
-    CLASS : ClassEnum
+' =========== InnerClass2 =========== 
+class InnerClass2{ 
+    innerValue : int
 } 
 
 
-' =========== clazz.ClassMethod =========== 
-class clazz.ClassMethod{ 
-    name : String
-    returnType : String
-    paramsType : List
-    void <init>()
-    String getName()
-    void setName()
-    String getReturnType()
-    void setReturnType()
-    List<String> getParamsType()
-    void setParamsType()
-    String toString()
+' =========== Test2 =========== 
+class Test2{ 
+    next : Test2
+    value : Integer
+} 
+dep.TestClass<|--Test2
+dep.TestInterface<|..Test2
+
+
+' =========== TestEnum =========== 
+enum TestEnum{ 
+    A : TestEnum
+    B : TestEnum
+    C : TestEnum
+    D : TestEnum
 } 
 
 
-' =========== clazz.ClassParser =========== 
-class clazz.ClassParser{ 
-    factory : ParserFactory
-    void <init>()
-    ParsedClass parse()
-    JCTree.JCCompilationUnit innerParse()
-    ParserFactory getParserFactory()
-    CharSequence readFile()
-} 
-clazz.ClassParser*..com.sun.tools.javac.parser.ParserFactory
-
-
-' =========== clazz.ClassScanner =========== 
-class clazz.ClassScanner{ 
-    ParsedClass visitClass()
-    void handleClassTree()
-    void handleVariableTree()
-    void handleMethodTree()
-} 
-com.sun.source.util.TreeScanner<|--clazz.ClassScanner
-
-
-' =========== clazz.ImportsScanner =========== 
-class clazz.ImportsScanner{ 
-    ParsedClass visitImport()
-} 
-com.sun.source.util.TreeScanner<|--clazz.ImportsScanner
-
-
-' =========== clazz.ParsedClass =========== 
-class clazz.ParsedClass{ 
-    packagePath : String
-    extendsClasses : List
-    imports : List
-    methods : List
-    members : Map
-    name : String
-    type : ClassEnum
-    implementsClasses : List
-    innerClasses : List
-    void <init>()
-    ClassEnum getType()
-    void setType()
-    String getPackagePath()
-    void setPackagePath()
-    String getName()
-    void setName()
-    List<String> getImports()
-    void setImports()
-    Map<String, String> getMembers()
-    void setMembers()
-    List<String> getExtendsClasses()
-    void setExtendsClasses()
-    List<String> getImplementsClasses()
-    void setImplementsClasses()
-    List<ClassMethod> getMethods()
-    void setMethods()
-    List<ParsedClass> getInnerClasses()
-    void setInnerClasses()
-    String getFullName()
-    String toString()
-    String getFullClass()
-} 
-clazz.ParsedClass*..clazz.ClassEnum
-
-
-' =========== clazz.TypeUtil =========== 
-class clazz.TypeUtil{ 
-    String getType()
+' =========== dep.TestClass =========== 
+class dep.TestClass{ 
 } 
 
 
-' =========== plantuml.PlantumlPainter =========== 
-class plantuml.PlantumlPainter{ 
-    void paint()
-    void paint()
-    void paintInnerClass()
-    void paintDependencies()
-    void paintImplements()
-    void paintExtends()
-    void paintClass()
+' =========== dep.TestInterface =========== 
+interface dep.TestInterface{ 
 } 
 
 
-' =========== util.ClassUtil =========== 
-class util.ClassUtil{ 
-    BASIC_CLASS : Set
-    boolean isJdkBasicClass()
-    boolean isClassIgnorePackage()
-} 
-
-
-' =========== util.FileHandler =========== 
-interface util.FileHandler{ 
-    boolean handle()
-} 
-
-
-' =========== util.RecursiveScanner =========== 
-class util.RecursiveScanner{ 
-    void scan()
+' =========== dep.TestInterface2 =========== 
+interface dep.TestInterface2{ 
 } 
 
 @enduml

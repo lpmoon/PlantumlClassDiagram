@@ -1,0 +1,99 @@
+@startuml
+
+' =========== AbstractTest =========== 
+abstract class AbstractTest{ 
+    next : AbstractTest
+    test2 : Test2
+    test3 : Test3
+    value : Integer
+    testEnum : TestEnum
+} 
+dep.TestClass<|-- AbstractTest
+dep.TestInterface<|.. AbstractTest
+dep.TestInterface2<|.. AbstractTest
+AbstractTest*.. Test2
+AbstractTest*.. Test3
+AbstractTest*.. TestEnum
+
+
+' =========== dep.TestInterface =========== 
+interface dep.TestInterface{ 
+} 
+
+
+' =========== dep.TestInterface2 =========== 
+interface dep.TestInterface2{ 
+} 
+
+
+' =========== dep.TestClass =========== 
+class dep.TestClass{ 
+    int size()
+    boolean isEmpty()
+    boolean containsKey()
+    boolean containsValue()
+    Object get()
+    Object put()
+    Object remove()
+    void putAll()
+    void clear()
+    Set keySet()
+    Collection values()
+    Set<Entry> entrySet()
+    boolean equals()
+    int hashCode()
+} 
+Object<|-- dep.TestClass
+java.util.Map<|.. dep.TestClass
+
+
+' =========== Test2 =========== 
+class Test2{ 
+    next : Test2
+    value : Integer
+} 
+dep.TestClass<|-- Test2
+dep.TestInterface<|.. Test2
+
+
+' =========== Test3 =========== 
+class Test3{ 
+    object : Object
+} 
+
+
+' =========== TestEnum =========== 
+enum TestEnum{ 
+    A : TestEnum
+    B : TestEnum
+    C : TestEnum
+    D : TestEnum
+} 
+
+
+' =========== dep.TestInterface =========== 
+interface dep.TestInterface{ 
+} 
+
+
+' =========== dep.TestClass =========== 
+class dep.TestClass{ 
+    int size()
+    boolean isEmpty()
+    boolean containsKey()
+    boolean containsValue()
+    Object get()
+    Object put()
+    Object remove()
+    void putAll()
+    void clear()
+    Set keySet()
+    Collection values()
+    Set<Entry> entrySet()
+    boolean equals()
+    int hashCode()
+} 
+Object<|-- dep.TestClass
+java.util.Map<|.. dep.TestClass
+
+@enduml
