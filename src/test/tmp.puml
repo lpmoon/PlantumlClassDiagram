@@ -1,77 +1,139 @@
 @startuml
 
-' =========== AbstractTest =========== 
-abstract class AbstractTest{ 
-    next : AbstractTest
-    value : Integer
-} 
-TestClass<|--AbstractTest
-TestInterface<|..AbstractTest
-TestInterface2<|..AbstractTest
-AbstractTest*..Integer
-
-
-' =========== Test =========== 
-class Test{ 
-    next : Test
-    next2 : Test2
-    value : Integer
-    void hello()
-} 
-TestClass<|--Test
-TestInterface<|..Test
-TestInterface2<|..Test
-Test*..Test2
-Test*..Integer
-
-' =========== InnerClass =========== 
-class InnerClass{ 
-    innerValue : int
-} 
-InnerClass*..int
-
-Test+--InnerClass
-
-' =========== InnerClass2 =========== 
-class InnerClass2{ 
-    innerValue : int
-} 
-InnerClass2*..int
-
-Test+--InnerClass2
-
-
-' =========== Test2 =========== 
-class Test2{ 
-    next : Test2
-    value : Integer
-} 
-TestClass<|--Test2
-TestInterface<|..Test2
-Test2*..Integer
-
-
-' =========== TestEnum =========== 
-enum TestEnum{ 
-    A : TestEnum
-    B : TestEnum
-    C : TestEnum
-    D : TestEnum
+' =========== Main =========== 
+class Main{ 
+    void main()
+    void drawAllClasses()
 } 
 
 
-' =========== TestClass =========== 
-class TestClass{ 
+' =========== ClassEnum =========== 
+enum ClassEnum{ 
+    ABSTRACT_CLASS : ClassEnum
+    ENUM : ClassEnum
+    INTERFACE : ClassEnum
+    CLASS : ClassEnum
 } 
 
 
-' =========== TestInterface =========== 
-interface TestInterface{ 
+' =========== ClassMethod =========== 
+class ClassMethod{ 
+    name : String
+    returnType : String
+    paramsType : List
+    void <init>()
+    String getName()
+    void setName()
+    String getReturnType()
+    void setReturnType()
+    List<String> getParamsType()
+    void setParamsType()
+    String toString()
+} 
+ClassMethod*..String
+ClassMethod*..String
+ClassMethod*..List
+
+
+' =========== ClassParser =========== 
+class ClassParser{ 
+    factory : ParserFactory
+    void <init>()
+    ParsedClass parse()
+    JCTree.JCCompilationUnit innerParse()
+    ParserFactory getParserFactory()
+    CharSequence readFile()
+} 
+ClassParser*..ParserFactory
+
+
+' =========== ClassScanner =========== 
+class ClassScanner{ 
+    ParsedClass visitClass()
+    void handleClassTree()
+    void handleVariableTree()
+    void handleMethodTree()
+} 
+TreeScanner<|--ClassScanner
+
+
+' =========== ImportsScanner =========== 
+class ImportsScanner{ 
+    ParsedClass visitImport()
+} 
+TreeScanner<|--ImportsScanner
+
+
+' =========== ParsedClass =========== 
+class ParsedClass{ 
+    packagePath : String
+    extendsClasses : List
+    imports : List
+    methods : List
+    members : Map
+    name : String
+    type : ClassEnum
+    implementsClasses : List
+    innerClasses : List
+    void <init>()
+    ClassEnum getType()
+    void setType()
+    String getPackagePath()
+    void setPackagePath()
+    String getName()
+    void setName()
+    List<String> getImports()
+    void setImports()
+    Map<String, String> getMembers()
+    void setMembers()
+    List<String> getExtendsClasses()
+    void setExtendsClasses()
+    List<String> getImplementsClasses()
+    void setImplementsClasses()
+    List<ClassMethod> getMethods()
+    void setMethods()
+    List<ParsedClass> getInnerClasses()
+    void setInnerClasses()
+    String toString()
+} 
+ParsedClass*..String
+ParsedClass*..List
+ParsedClass*..List
+ParsedClass*..List
+ParsedClass*..Map
+ParsedClass*..String
+ParsedClass*..ClassEnum
+ParsedClass*..List
+ParsedClass*..List
+
+
+' =========== TypeUtil =========== 
+class TypeUtil{ 
+    String getType()
 } 
 
 
-' =========== TestInterface2 =========== 
-interface TestInterface2{ 
+' =========== PlantumlPainter =========== 
+class PlantumlPainter{ 
+    void paint()
+    void paint()
+    void paintInnerClass()
+    void paintDependencies()
+    void paintImplements()
+    void paintExtends()
+    void paintClass()
+} 
+
+
+' =========== FileHandler =========== 
+interface FileHandler{ 
+    boolean handle()
+} 
+
+
+' =========== RecursiveScanner =========== 
+class RecursiveScanner{ 
+    void scan()
 } 
 
 @enduml

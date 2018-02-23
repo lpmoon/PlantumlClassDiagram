@@ -25,7 +25,7 @@ public class ClassScanner extends
         }
 
         if (node.getExtendsClause() != null) {
-            parsedClass.getExtendsClasses().add(node.getExtendsClause().toString());
+            parsedClass.getExtendsClasses().add(TypeUtil.getType(node.getExtendsClause()));
         }
 
         for (Tree i : node.getImplementsClause()) {
@@ -57,7 +57,7 @@ public class ClassScanner extends
 
     private void handleVariableTree(ParsedClass parsedClass, VariableTree member) {
         VariableTree variable = member;
-        parsedClass.getMembers().put(variable.getName().toString(), variable.getType().toString());
+        parsedClass.getMembers().put(variable.getName().toString(), TypeUtil.getType(variable.getType()));
     }
 
     private void handleMethodTree(ParsedClass parsedClass, MethodTree member) {
@@ -65,7 +65,12 @@ public class ClassScanner extends
 
         MethodTree method = member;
         String name = method.getName().toString();
-        String returnType = method.getReturnType().toString();
+        String returnType;
+        if (method.getReturnType() != null) {
+            returnType = method.getReturnType().toString();
+        } else {
+            returnType = "void";
+        }
 
         for (Tree param : method.getParameters()) {
             VariableTree variable = (VariableTree) param;
