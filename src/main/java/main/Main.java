@@ -1,3 +1,5 @@
+package main;
+
 import clazz.ClassParser;
 import clazz.ParsedClass;
 import file.FileHandler;
