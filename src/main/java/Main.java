@@ -3,7 +3,9 @@ import clazz.ParsedClass;
 import file.FileHandler;
 import file.RecursiveScanner;
 import graph.Graph;
+import org.apache.commons.cli.*;
 import plantuml.PlantumlPainter;
+import util.StringUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,10 +15,61 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        CommandLineParser parser = new BasicParser( );
+        Options options = new Options( );
+        options.addOption("h", "help", false, "Print this usage information");
+        options.addOption("s", "src", true, "Source folder");
+        options.addOption("d", "dest", true, "Destination folder");
+        options.addOption("n", "name", true, "Name of generated plantuml file");
+        options.addOption("c", "class", true, "Destination class");
 
+        CommandLine commandLine = null;
+        try {
+            commandLine = parser.parse(options, args);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (commandLine.hasOption("h")) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("-h help  # Print this usage information\n");
+            sb.append("-s src   # Source folder\n");
+            sb.append("-d dest  # Destination folder\n");
+            sb.append("-n name  # Name of generated plantuml file\n");
+            sb.append("-c class # Destination class\n");
+            System.out.println(sb.toString());
+            return;
+        }
+
+        String srcFolder = commandLine.getOptionValue("s");
+        String destFolder = commandLine.getOptionValue("d");
+        String name = commandLine.getOptionValue("n");
+        String clazz = commandLine.getOptionValue("c");
+
+        if (StringUtil.isBlank(srcFolder) || StringUtil.isBlank(destFolder) || StringUtil.isBlank(name)) {
+            System.err.println("Notice: -s -d -n should not be empty!!");
+            return;
+        }
+
+        Main main = new Main();
+        if (StringUtil.isBlank(clazz)) {
+            main.drawAllClasses(srcFolder, destFolder, name);
+        } else {
+            main.drawAssociated(srcFolder, destFolder, name, clazz);
+        }
     }
 
-    public static void drawAssociated(String path, String dest, String name, String clazz) throws IOException {
+    public void drawAllClasses(String path, String dest, String name) throws IOException {
+        List<ParsedClass> parsedClassList = getParsedClasses(path);
+
+        PlantumlPainter painter = new PlantumlPainter(dest, name);
+        painter.begin();
+        painter.paint(parsedClassList);
+        painter.end();
+    }
+
+    public void drawAssociated(String path, String dest, String name, String clazz) throws IOException {
         List<ParsedClass> parsedClassList = getParsedClasses(path);
 
         Graph<ParsedClass> graph = new Graph<>();
@@ -74,7 +127,7 @@ public class Main {
         return;
     }
 
-    private static ParsedClass queryParsedClass(String clazz, List<ParsedClass> parsedClassList) {
+    private ParsedClass queryParsedClass(String clazz, List<ParsedClass> parsedClassList) {
         for (ParsedClass parsedClass : parsedClassList) {
             if (parsedClass.getFullName().equals(clazz)) {
                 return parsedClass;
@@ -84,16 +137,7 @@ public class Main {
         return null;
     }
 
-    public static void drawAllClasses(String path, String dest, String name) throws IOException {
-        List<ParsedClass> parsedClassList = getParsedClasses(path);
-
-        PlantumlPainter painter = new PlantumlPainter(dest, name);
-        painter.begin();
-        painter.paint(parsedClassList);
-        painter.end();
-    }
-
-    private static List<ParsedClass> getParsedClasses(String path) throws IOException {
+    private List<ParsedClass> getParsedClasses(String path) throws IOException {
         List<ParsedClass> parsedClassList = new ArrayList<>();
         Set<String> processed = new HashSet<>();
 

@@ -20,9 +20,11 @@ plugins {
 mainClassName = 'App'
 
 repositories {
+    mavenCentral()
     maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
 }
 
 dependencies {
-   compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
+    compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
+    compile 'commons-cli:commons-cli:1.4'
 }
