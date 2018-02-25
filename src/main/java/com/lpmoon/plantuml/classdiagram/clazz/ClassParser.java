@@ -1,4 +1,4 @@
-package clazz;
+package com.lpmoon.plantuml.classdiagram.clazz;
 
 import com.sun.tools.javac.file.JavacFileManager;
 import com.sun.tools.javac.parser.Parser;

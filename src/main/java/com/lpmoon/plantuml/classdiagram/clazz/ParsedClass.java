@@ -1,6 +1,6 @@
-package clazz;
+package com.lpmoon.plantuml.classdiagram.clazz;
 
-import util.ClassUtil;
+import com.lpmoon.plantuml.classdiagram.util.ClassUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

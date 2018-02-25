@@ -1,15 +1,17 @@
+package com.lpmoon.plantuml.classdiagram;
+
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiDirectory;
-import main.Main;
+import com.lpmoon.plantuml.classdiagram.main.Main;
 
 import java.io.IOException;
 
 public class PaintPlantumlClassDiagramAction extends AnAction {
     public PaintPlantumlClassDiagramAction() {
-        super("plantuml.class.diagram");
+        super("com.lpmoon.plantuml.classdiagram.plantuml.class.diagram");
     }
 
     public void actionPerformed(AnActionEvent event) {

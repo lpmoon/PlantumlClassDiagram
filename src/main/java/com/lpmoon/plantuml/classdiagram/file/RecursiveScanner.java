@@ -1,4 +1,4 @@
-package file;
+package com.lpmoon.plantuml.classdiagram.file;
 
 import java.io.File;
 import java.io.FilenameFilter;

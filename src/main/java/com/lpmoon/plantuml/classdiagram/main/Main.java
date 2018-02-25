@@ -1,13 +1,13 @@
-package main;
+package com.lpmoon.plantuml.classdiagram.main;
 
-import clazz.ClassParser;
-import clazz.ParsedClass;
-import file.FileHandler;
-import file.RecursiveScanner;
-import graph.Graph;
+import com.lpmoon.plantuml.classdiagram.clazz.ClassParser;
+import com.lpmoon.plantuml.classdiagram.clazz.ParsedClass;
+import com.lpmoon.plantuml.classdiagram.file.FileHandler;
+import com.lpmoon.plantuml.classdiagram.file.RecursiveScanner;
+import com.lpmoon.plantuml.classdiagram.graph.Graph;
 import org.apache.commons.cli.*;
-import plantuml.PlantumlPainter;
-import util.StringUtil;
+import com.lpmoon.plantuml.classdiagram.plantuml.PlantumlPainter;
+import com.lpmoon.plantuml.classdiagram.util.StringUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -22,7 +22,7 @@ public class Main {
         options.addOption("h", "help", false, "Print this usage information");
         options.addOption("s", "src", true, "Source folder");
         options.addOption("d", "dest", true, "Destination folder");
-        options.addOption("n", "name", true, "Name of generated plantuml file");
+        options.addOption("n", "name", true, "Name of generated com.lpmoon.plantuml.classdiagram.plantuml com.lpmoon.com.lpmoon.plantuml.classdiagram.plantuml.classdiagram.file");
         options.addOption("c", "class", true, "Destination class");
 
         CommandLine commandLine = null;
@@ -39,7 +39,7 @@ public class Main {
             sb.append("-h help  # Print this usage information").append(separator);
             sb.append("-s src   # Source folder").append(separator);
             sb.append("-d dest  # Destination folder").append(separator);
-            sb.append("-n name  # Name of generated plantuml file").append(separator);
+            sb.append("-n name  # Name of generated com.lpmoon.plantuml.classdiagram.plantuml com.lpmoon.com.lpmoon.plantuml.classdiagram.plantuml.classdiagram.file").append(separator);
             sb.append("-c class # Destination class").append(separator);
             System.out.println(sb.toString());
             return;

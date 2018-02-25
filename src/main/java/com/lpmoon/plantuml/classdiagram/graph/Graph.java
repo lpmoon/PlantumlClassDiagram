@@ -1,4 +1,4 @@
-package graph;
+package com.lpmoon.plantuml.classdiagram.graph;
 
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -71,7 +71,7 @@ public class Graph<T> {
         return datas;
     }
 
-//    public static void main(String[] args) {
+//    public static void com.lpmoon.com.lpmoon.plantuml.classdiagram.plantuml.classdiagram.main(String[] args) {
 //        Graph<String> g = new Graph<>();
 //        g.add("a");
 //        g.add("b");

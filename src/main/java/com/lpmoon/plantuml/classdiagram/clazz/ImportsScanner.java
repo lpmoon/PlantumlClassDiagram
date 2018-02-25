@@ -1,4 +1,4 @@
-package clazz;
+package com.lpmoon.plantuml.classdiagram.clazz;
 
 import com.sun.source.tree.ImportTree;
 import com.sun.source.util.TreeScanner;

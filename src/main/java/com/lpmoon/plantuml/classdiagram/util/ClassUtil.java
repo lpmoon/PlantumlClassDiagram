@@ -1,4 +1,4 @@
-package util;
+package com.lpmoon.plantuml.classdiagram.util;
 
 import java.util.Arrays;
 import java.util.HashSet;

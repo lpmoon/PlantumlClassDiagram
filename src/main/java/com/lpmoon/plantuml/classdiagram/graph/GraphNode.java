@@ -1,4 +1,4 @@
-package graph;
+package com.lpmoon.plantuml.classdiagram.graph;
 
 import java.util.ArrayList;
 import java.util.List;

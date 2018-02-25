@@ -1,4 +1,4 @@
-package clazz;
+package com.lpmoon.plantuml.classdiagram.clazz;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package util;
+package com.lpmoon.plantuml.classdiagram.util;
 
 public class StringUtil {
     public static boolean isBlank(final CharSequence cs) {

@@ -28,7 +28,7 @@
     <actions>
         <group id="PlantumlClassDiagramPlugin.Menu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="PlantumlClassDiagramPlugin.Textboxes" class="PaintPlantumlClassDiagramAction" text="Paint" description="Paint Plantuml Class Diagram"/>
+            <action id="PlantumlClassDiagramPlugin.Textboxes" class="com.lpmoon.plantuml.classdiagram.PaintPlantumlClassDiagramAction" text="Paint" description="Paint Plantuml Class Diagram"/>
         </group>
     </actions>
 

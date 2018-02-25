@@ -1,9 +1,9 @@
-package plantuml;
+package com.lpmoon.plantuml.classdiagram.plantuml;
 
-import clazz.ClassEnum;
-import clazz.ClassMethod;
-import clazz.ParsedClass;
-import util.ClassUtil;
+import com.lpmoon.plantuml.classdiagram.clazz.ClassEnum;
+import com.lpmoon.plantuml.classdiagram.clazz.ClassMethod;
+import com.lpmoon.plantuml.classdiagram.clazz.ParsedClass;
+import com.lpmoon.plantuml.classdiagram.util.ClassUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;
