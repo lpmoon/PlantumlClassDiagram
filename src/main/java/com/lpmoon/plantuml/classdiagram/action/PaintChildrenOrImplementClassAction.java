@@ -2,17 +2,15 @@ package com.lpmoon.plantuml.classdiagram.action;
 
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDirectory;
 import com.lpmoon.plantuml.classdiagram.main.Main;
 
 import java.io.IOException;
 
 public class PaintChildrenOrImplementClassAction extends AnAction {
     public PaintChildrenOrImplementClassAction() {
-        super("com.lpmoon.plantuml.classdiagram.plantuml.class.diagram");
+        super("com.lpmoon.plantuml.classdiagram.plantuml.class.diagram.PaintChildrenOrImplementClassAction");
     }
 
     public void actionPerformed(AnActionEvent event) {

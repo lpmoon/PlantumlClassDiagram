@@ -76,17 +76,4 @@ public class Graph<T> {
 
         return datas;
     }
-
-//    public static void com.lpmoon.com.lpmoon.plantuml.classdiagram.plantuml.classdiagram.main(String[] args) {
-//        Graph<String> g = new Graph<>();
-//        g.add("a");
-//        g.add("b");
-//        g.add("c");
-//        g.add("d");
-//
-//        g.connect("a", "b");
-//        g.connect("a", "c");
-//
-//        System.out.println(g.findConnectedNodes("a"));
-//    }
 }
