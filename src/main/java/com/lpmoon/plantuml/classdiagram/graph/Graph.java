@@ -11,8 +11,10 @@ public class Graph<T> {
     }
 
     public void add(T data) {
-        GraphNode<T> node = new GraphNode<>(data);
-        graphNodes.put(data, node);
+        if (!graphNodes.containsKey(data)) {
+            GraphNode<T> node = new GraphNode<>(data);
+            graphNodes.put(data, node);
+        }
     }
 
     public void connect(T from, T to) {

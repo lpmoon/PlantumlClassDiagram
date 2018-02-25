@@ -27,4 +27,5 @@ repositories {
 dependencies {
     compile files(org.gradle.internal.jvm.Jvm.current().toolsJar)
     compile 'commons-cli:commons-cli:1.4'
+    test 'junit:junit:4.12'
 }

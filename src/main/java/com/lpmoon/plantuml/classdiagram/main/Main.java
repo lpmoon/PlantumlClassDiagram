@@ -78,6 +78,8 @@ public class Main {
         Graph<ParsedClass> graph = new Graph<>();
 
         for (ParsedClass currentClass : parsedClassMap.values()) {
+            graph.add(currentClass);
+
             for (String implementClass : currentClass.getImplementsClasses()) {
                 String fullImplementClass = currentClass.getFullClass(implementClass);
                 ParsedClass parsedClass = parsedClassMap.get(fullImplementClass);
