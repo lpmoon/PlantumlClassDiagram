@@ -9,15 +9,18 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 public class PlantumlPainter {
     private BufferedWriter bufferedWriter;
+    private Map<String, ParsedClass> parsedClassMap;
+    private boolean ignoreClassNotInParsedMap;
 
-    public PlantumlPainter(String filePath, String fileName) {
+    public PlantumlPainter(String filePath, String fileName, Map<String, ParsedClass> parsedClassMap, boolean ignoreClassNotInParsedMap) {
         try {
             this.bufferedWriter = new BufferedWriter(new FileWriter(new File(filePath + "/" + fileName + ".puml")));
+            this.parsedClassMap = parsedClassMap;
+            this.ignoreClassNotInParsedMap = ignoreClassNotInParsedMap;
         } catch (IOException e) {
         }
     }
@@ -31,8 +34,8 @@ public class PlantumlPainter {
         bufferedWriter.close();
     }
 
-    public void paint(List<ParsedClass> parsedClassList) throws IOException {
-        for (ParsedClass parsedClass : parsedClassList) {
+    public void paint() throws IOException {
+        for (ParsedClass parsedClass : this.parsedClassMap.values()) {
             paint(parsedClass);
         }
     }
@@ -49,29 +52,37 @@ public class PlantumlPainter {
 
     private void paintInnerClass(ParsedClass parsedClass) throws IOException {
         for (ParsedClass innerClass : parsedClass.getInnerClasses()) {
-            bufferedWriter.write(parsedClass.getFullName() + "+-- " + innerClass.getFullName() + "\n");
+            if (!ignoreClassNotInParsedMap || parsedClassMap.containsKey(innerClass.getFullName())) {
+                bufferedWriter.write(parsedClass.getFullName() + "+-- " + innerClass.getFullName() + "\n");
+            }
         }
     }
 
     private void paintDependencies(ParsedClass parsedClass) throws IOException {
         for (Map.Entry<String, String> entry : parsedClass.getMembers().entrySet()) {
             String clazz = entry.getValue();
-            String fullClass = parsedClass.getFullClass(entry.getValue());
-            if (!parsedClass.getName().equals(entry.getValue()) && !ClassUtil.isJdkBasicClass(fullClass)) {
-                bufferedWriter.write(parsedClass.getFullName() + "*.. " + fullClass + "\n");
+            String fullClass = parsedClass.getFullClass(clazz);
+            if (!parsedClass.getName().equals(clazz) && !ClassUtil.isJdkBasicClass(fullClass)) {
+                if (!ignoreClassNotInParsedMap || parsedClassMap.containsKey(fullClass)) {
+                    bufferedWriter.write(parsedClass.getFullName() + "*.. " + fullClass + "\n");
+                }
             }
         }
     }
 
     private void paintImplements(ParsedClass parsedClass) throws IOException {
         for (String implementsClass : parsedClass.getImplementsClasses()) {
-            bufferedWriter.write(parsedClass.getFullClass(implementsClass) + "<|.. " + parsedClass.getFullName() + "\n");
+            if (!ignoreClassNotInParsedMap || parsedClassMap.containsKey(parsedClass.getFullClass(implementsClass))) {
+                bufferedWriter.write(parsedClass.getFullClass(implementsClass) + "<|.. " + parsedClass.getFullName() + "\n");
+            }
         }
     }
 
     private void paintExtends(ParsedClass parsedClass) throws IOException {
         for (String extendsClass : parsedClass.getExtendsClasses()) {
-            bufferedWriter.write(parsedClass.getFullClass(extendsClass) + "<|-- " + parsedClass.getFullName() + "\n");
+            if (!ignoreClassNotInParsedMap || parsedClassMap.containsKey(parsedClass.getFullClass(extendsClass))) {
+                bufferedWriter.write(parsedClass.getFullClass(extendsClass) + "<|-- " + parsedClass.getFullName() + "\n");
+            }
         }
     }
 

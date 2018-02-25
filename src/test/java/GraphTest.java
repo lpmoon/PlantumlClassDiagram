@@ -14,7 +14,7 @@ public class GraphTest {
         graph.add("b");
         graph.add("c");
 
-        Assert.assertEquals(1, graph.findConnectedNodes("a").size());
+        Assert.assertEquals(1, graph.findConnectedNodes("a", true, true).size());
     }
 
     @Test
@@ -28,12 +28,12 @@ public class GraphTest {
         graph.connect("a", "b");
         graph.connect("a", "c");
 
-        List<String> nodes = graph.findConnectedNodes("a");
+        List<String> nodes = graph.findConnectedNodes("a", true, true);
         Collections.sort(nodes);
 
         Assert.assertEquals(nodes.toArray(), new String[]{"a", "b", "c"});
-        Assert.assertEquals(3, graph.findConnectedNodes("a").size());
-        Assert.assertEquals(1, graph.findConnectedNodes("d").size());
+        Assert.assertEquals(3, graph.findConnectedNodes("a", true, true).size());
+        Assert.assertEquals(1, graph.findConnectedNodes("d", true, true).size());
     }
 
     @Test
@@ -49,8 +49,8 @@ public class GraphTest {
         }
 
 
-        List<String> nodes = graph.findConnectedNodes("a");
+        List<String> nodes = graph.findConnectedNodes("a", true, true);
 
-        Assert.assertEquals(111, graph.findConnectedNodes("a").size());
+        Assert.assertEquals(111, graph.findConnectedNodes("a",true, true).size());
     }
 }

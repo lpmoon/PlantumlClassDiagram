@@ -28,13 +28,16 @@
     <actions>
         <group id="PlantumlClassDiagramPlugin.MainMenu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="PlantumlClassDiagramPlugin.Textboxes" class="com.lpmoon.plantuml.classdiagram.PaintPlantumlClassDiagramAction" text="Paint" description="Paint Plantuml Class Diagram"/>
+            <action id="PlantumlClassDiagramPlugin.Textboxes" class="com.lpmoon.plantuml.classdiagram.action.PaintChildrenOrImplementClassAction" text="Paint" description="Paint Plantuml Class Diagram"/>
         </group>
 
-        <group id="PlantumlClassDiagramPlugin.PopMenu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram">
+        <group id="PlantumlClassDiagramPlugin.PopMenu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram" popup="true">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
-            <action id="PlantumlClassDiagramPlugin.PopMenuItem" class="com.lpmoon.plantuml.classdiagram.PaintPlantumlClassDiagramAction" text="PaintPlantumlClassDiagram" description="Paint Plantuml Class Diagram"/>
+            <action id="PlantumlClassDiagramPlugin.PopMenuItem" class="com.lpmoon.plantuml.classdiagram.action.PaintAssociatedClassAction" text="AssociatedClass" description="Paint Plantuml Class Diagram"/>
+            <action id="PlantumlClassDiagramPlugin.PopMenuItem2" class="com.lpmoon.plantuml.classdiagram.action.PaintChildrenOrImplementClassAction" text="ChildrenOrImplementClass" description="Paint Plantuml Class Diagram"/>
+            <action id="PlantumlClassDiagramPlugin.PopMenuItem3" class="com.lpmoon.plantuml.classdiagram.action.PaintAllClassesAction" text="AllClassInFolder" description="Paint Plantuml Class Diagram"/>
         </group>
+
     </actions>
 
 </idea-plugin>

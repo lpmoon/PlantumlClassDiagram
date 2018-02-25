@@ -24,6 +24,7 @@ public class Main {
         options.addOption("d", "dest", true, "Destination folder");
         options.addOption("n", "name", true, "Name of generated com.lpmoon.plantuml.classdiagram.plantuml com.lpmoon.com.lpmoon.plantuml.classdiagram.plantuml.classdiagram.file");
         options.addOption("c", "class", true, "Destination class");
+        options.addOption("sub", "sub", false, "Destination class");
 
         CommandLine commandLine = null;
         try {
@@ -41,6 +42,7 @@ public class Main {
             sb.append("-d dest  # Destination folder").append(separator);
             sb.append("-n name  # Name of generated com.lpmoon.plantuml.classdiagram.plantuml com.lpmoon.com.lpmoon.plantuml.classdiagram.plantuml.classdiagram.file").append(separator);
             sb.append("-c class # Destination class").append(separator);
+            sb.append("-sub     # Sub").append(separator);
             System.out.println(sb.toString());
             return;
         }
@@ -49,6 +51,7 @@ public class Main {
         String destFolder = commandLine.getOptionValue("d");
         String name = commandLine.getOptionValue("n");
         String clazz = commandLine.getOptionValue("c");
+        boolean sub = commandLine.hasOption("sub");
 
         if (StringUtil.isBlank(srcFolder) || StringUtil.isBlank(destFolder) || StringUtil.isBlank(name)) {
             System.err.println("Notice: -s -d -n should not be empty!!");
@@ -58,18 +61,75 @@ public class Main {
         Main main = new Main();
         if (StringUtil.isBlank(clazz)) {
             main.drawAllClasses(srcFolder, destFolder, name);
-        } else {
+        } else if (!sub){
             main.drawAssociated(srcFolder, destFolder, name, clazz);
+        } else {
+            main.drawImplementsOrExtends(srcFolder, destFolder, name, clazz);
         }
     }
 
     public void drawAllClasses(String path, String dest, String name) throws IOException {
         Map<String, ParsedClass> parsedClassMap = getParsedClasses(path);
 
-        PlantumlPainter painter = new PlantumlPainter(dest, name);
+        PlantumlPainter painter = new PlantumlPainter(dest, name, parsedClassMap, false);
         painter.begin();
-        painter.paint(new ArrayList<>(parsedClassMap.values()));
+        painter.paint();
         painter.end();
+    }
+
+    public void drawImplementsOrExtends(String path, String dest, String name, String clazz) throws IOException {
+        Map<String, ParsedClass> parsedClassMap = getParsedClasses(path);
+
+        Graph<ParsedClass> graph = new Graph<>();
+
+        for (ParsedClass currentClass : parsedClassMap.values()) {
+            graph.add(currentClass);
+
+            for (String implementClass : currentClass.getImplementsClasses()) {
+                String fullImplementClass = currentClass.getFullClass(implementClass);
+                ParsedClass parsedClass = parsedClassMap.get(fullImplementClass);
+                if (parsedClass == null) {
+                    continue;
+                }
+
+                graph.connect(currentClass, parsedClass);
+            }
+
+            for (String extendClass : currentClass.getExtendsClasses()) {
+                String fullExtendClass = currentClass.getFullClass(extendClass);
+                ParsedClass parsedClass = parsedClassMap.get(fullExtendClass);
+                if (parsedClass == null) {
+                    continue;
+                }
+
+                graph.connect(currentClass, parsedClass);
+            }
+        }
+
+        List<ParsedClass> shouldPainted = new ArrayList<>();
+
+        ParsedClass centerClass = parsedClassMap.get(clazz);
+        if (centerClass == null) {
+            return;
+        }
+
+        shouldPainted.addAll(graph.findConnectedNodes(centerClass, true, false));
+
+        PlantumlPainter painter = new PlantumlPainter(dest, name, transform(shouldPainted), true);
+        painter.begin();
+        painter.paint();
+        painter.end();
+
+        return;
+    }
+
+    public Map<String, ParsedClass> transform(List<ParsedClass> parsedClassList) {
+        Map<String, ParsedClass> map = new HashMap<>();
+        for (ParsedClass parsedClass : parsedClassList) {
+            map.put(parsedClass.getFullName(), parsedClass);
+        }
+
+        return map;
     }
 
     public void drawAssociated(String path, String dest, String name, String clazz) throws IOException {
@@ -122,11 +182,11 @@ public class Main {
             return;
         }
 
-        shouldPainted.addAll(graph.findConnectedNodes(centerClass));
+        shouldPainted.addAll(graph.findConnectedNodes(centerClass, true, true));
 
-        PlantumlPainter painter = new PlantumlPainter(dest, name);
+        PlantumlPainter painter = new PlantumlPainter(dest, name, transform(shouldPainted), false);
         painter.begin();
-        painter.paint(shouldPainted);
+        painter.paint();
         painter.end();
 
         return;

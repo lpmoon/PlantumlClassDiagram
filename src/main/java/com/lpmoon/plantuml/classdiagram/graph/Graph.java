@@ -35,7 +35,7 @@ public class Graph<T> {
         toNode.getInComings().add(fromNode);
     }
 
-    public List<T> findConnectedNodes(T dst) {
+    public List<T> findConnectedNodes(T dst, boolean in, boolean out) {
         List<T> datas = new ArrayList<>();
 
         GraphNode<T> node = graphNodes.get(dst);
@@ -53,19 +53,23 @@ public class Graph<T> {
 
         while (!queue.isEmpty()) {
             GraphNode<T> currentNode = queue.poll();
-            for (GraphNode<T> n : currentNode.getInComings()) {
-                if (!processed.contains(n.getData())) {
-                    queue.add(n);
-                    datas.add(n.getData());
-                    processed.add(n.getData());
+            if (in) {
+                for (GraphNode<T> n : currentNode.getInComings()) {
+                    if (!processed.contains(n.getData())) {
+                        queue.add(n);
+                        datas.add(n.getData());
+                        processed.add(n.getData());
+                    }
                 }
             }
 
-            for (GraphNode<T> n : currentNode.getOutComings()) {
-                if (!processed.contains(n.getData())) {
-                    queue.add(n);
-                    datas.add(n.getData());
-                    processed.add(n.getData());
+            if (out) {
+                for (GraphNode<T> n : currentNode.getOutComings()) {
+                    if (!processed.contains(n.getData())) {
+                        queue.add(n);
+                        datas.add(n.getData());
+                        processed.add(n.getData());
+                    }
                 }
             }
         }

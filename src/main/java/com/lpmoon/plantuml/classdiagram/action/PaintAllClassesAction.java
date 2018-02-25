@@ -1,6 +1,9 @@
-package com.lpmoon.plantuml.classdiagram;
+package com.lpmoon.plantuml.classdiagram.action;
 
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiClass;
@@ -9,8 +12,8 @@ import com.lpmoon.plantuml.classdiagram.main.Main;
 
 import java.io.IOException;
 
-public class PaintPlantumlClassDiagramAction extends AnAction {
-    public PaintPlantumlClassDiagramAction() {
+public class PaintAllClassesAction extends AnAction {
+    public PaintAllClassesAction() {
         super("com.lpmoon.plantuml.classdiagram.plantuml.class.diagram");
     }
 
@@ -25,16 +28,6 @@ public class PaintPlantumlClassDiagramAction extends AnAction {
                 String path = ((PsiDirectory)navigatable).getVirtualFile().getPresentableUrl();
                 try {
                     main.drawAllClasses(path, path, ((PsiDirectory)navigatable).getName());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (navigatable instanceof PsiClass) {
-                Project project = event.getData(PlatformDataKeys.PROJECT);
-                String projectPath = project.getBasePath();
-                try {
-                    main.drawAssociated(projectPath, projectPath, ((PsiClass)navigatable).getName(), ((PsiClass)navigatable).getQualifiedName());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
