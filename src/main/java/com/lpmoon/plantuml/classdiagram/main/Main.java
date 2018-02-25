@@ -259,6 +259,25 @@ public class Main {
             e.shutdown();
         }
 
+        for (ParsedClass currentClass : parsedClassMap.values()) {
+            addNonExistedClass(currentClass.getImplementsClasses(), currentClass, parsedClassMap);
+            addNonExistedClass(currentClass.getExtendsClasses(), currentClass, parsedClassMap);
+            addNonExistedClass(new ArrayList<>(currentClass.getMembers().values()), currentClass, parsedClassMap);
+        }
+
         return parsedClassMap;
+    }
+
+    public void addNonExistedClass(List<String> classes, ParsedClass currentClass, Map<String, ParsedClass> parsedClassMap) {
+        for (String clazz : classes) {
+            String fullClassName = currentClass.getFullClass(clazz);
+            ParsedClass parsedClass = parsedClassMap.get(fullClassName);
+            if (parsedClass == null) {
+                ParsedClass notExistedClass = new ParsedClass();
+                notExistedClass.setName(fullClassName);
+                parsedClassMap.put(fullClassName, notExistedClass);
+                System.err.println("Class " + fullClassName + " not exists!!");
+            }
+        }
     }
 }
