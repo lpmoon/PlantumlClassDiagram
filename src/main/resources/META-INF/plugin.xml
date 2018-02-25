@@ -26,9 +26,14 @@
     </extensions>
 
     <actions>
-        <group id="PlantumlClassDiagramPlugin.Menu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram">
+        <group id="PlantumlClassDiagramPlugin.MainMenu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram">
             <add-to-group group-id="MainMenu" anchor="last"/>
             <action id="PlantumlClassDiagramPlugin.Textboxes" class="com.lpmoon.plantuml.classdiagram.PaintPlantumlClassDiagramAction" text="Paint" description="Paint Plantuml Class Diagram"/>
+        </group>
+
+        <group id="PlantumlClassDiagramPlugin.PopMenu" text="PlantumlClassDiagram" description="Paint Plantuml Class Diagram">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <action id="PlantumlClassDiagramPlugin.PopMenuItem" class="com.lpmoon.plantuml.classdiagram.PaintPlantumlClassDiagramAction" text="PaintPlantumlClassDiagram" description="Paint Plantuml Class Diagram"/>
         </group>
     </actions>
 
