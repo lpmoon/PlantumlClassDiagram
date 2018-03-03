@@ -1,8 +1,8 @@
 <idea-plugin>
-    <id>org.jetbrains</id>
+    <id>com.lpmoon.plantuml</id>
     <name>Plantuml_Class_Diagram_Plugin</name>
     <version>0.0.1</version>
-    <vendor email="dummy" url="dummy">dummy</vendor>
+    <vendor email="lp_moon@163.com" url="https://lpmoon.github.io">dummy</vendor>
 
     <description><![CDATA[
       Plantuml Class Diagram Plugin.<br>
@@ -14,7 +14,7 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="162"/>
+    <idea-version since-build="145.0"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
